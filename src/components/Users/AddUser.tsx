@@ -11,12 +11,28 @@ type AddUserPropsType = {
 export const AddUser = ({ onAddUser }: AddUserPropsType) => {
   const [enteredUsername, setEnteredUsername] = React.useState('');
   const [enteredAge, setEnteredAge] = React.useState('');
+  const [error, setError] = React.useState<{
+    title: string;
+    message: string;
+  } | null>(null);
 
   const addUserHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (enteredUsername.trim() === '' || enteredAge.trim() === '') return;
-    if (Number(enteredAge) < 1) return;
+    if (enteredUsername.trim() === '' || enteredAge.trim() === '') {
+      setError({
+        title: 'invalid input',
+        message: 'PLS enter valid name and age (non-empty values)',
+      });
+      return;
+    }
+    if (Number(enteredAge) < 1) {
+      setError({
+        title: 'invalid age',
+        message: 'PLS enter valid age (greater zero)',
+      });
+      return;
+    }
 
     onAddUser(enteredUsername, Number(enteredAge));
 
@@ -31,9 +47,17 @@ export const AddUser = ({ onAddUser }: AddUserPropsType) => {
     setEnteredAge(e.target.value);
   };
 
+  const errorHandler = () => setError(null);
+
   return (
     <div>
-      <ErrorModal title='An error occured!' message='Smth went wrong!' />
+      {error && (
+        <ErrorModal
+          title={error.title}
+          message={error.message}
+          onConfirm={errorHandler}
+        />
+      )}
       <Card className={classes.input}>
         <form onSubmit={addUserHandler}>
           <label htmlFor='username'>Username</label>
