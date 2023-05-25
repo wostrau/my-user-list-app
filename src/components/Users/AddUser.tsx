@@ -3,6 +3,7 @@ import { Card } from '../UI/Card';
 import classes from './AddUser.module.css';
 import Button from '../UI/Button';
 import ErrorModal from '../UI/ErrorModal';
+import Wrapper from '../Helpers/Wrapper';
 
 type AddUserPropsType = {
   onAddUser: (uName: string, uAge: number) => void;
@@ -50,7 +51,7 @@ export const AddUser = ({ onAddUser }: AddUserPropsType) => {
   const errorHandler = () => setError(null);
 
   return (
-    <div>
+    <React.Fragment>
       {error && (
         <ErrorModal
           title={error.title}
@@ -77,6 +78,6 @@ export const AddUser = ({ onAddUser }: AddUserPropsType) => {
           <Button type='submit'>Add User</Button>
         </form>
       </Card>
-    </div>
+    </React.Fragment>
   );
 };
