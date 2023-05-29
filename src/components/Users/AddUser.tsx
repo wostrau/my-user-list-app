@@ -3,7 +3,6 @@ import { Card } from '../UI/Card';
 import classes from './AddUser.module.css';
 import Button from '../UI/Button';
 import ErrorModal from '../UI/ErrorModal';
-import Wrapper from '../Helpers/Wrapper';
 
 type AddUserPropsType = {
   onAddUser: (uName: string, uAge: number) => void;
@@ -22,15 +21,15 @@ export const AddUser = ({ onAddUser }: AddUserPropsType) => {
 
     if (enteredUsername.trim() === '' || enteredAge.trim() === '') {
       setError({
-        title: 'invalid input',
-        message: 'PLS enter valid name and age (non-empty values)',
+        title: 'Invalid input',
+        message: 'Kindly ask you to enter valid name and age (non-empty values)',
       });
       return;
     }
     if (Number(enteredAge) < 1) {
       setError({
-        title: 'invalid age',
-        message: 'PLS enter valid age (greater zero)',
+        title: 'Invalid age',
+        message: 'Kindly ask you to enter valid age (greater than zero)',
       });
       return;
     }
